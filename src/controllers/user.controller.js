@@ -72,6 +72,19 @@ let getUser = (req, res) => {
   }
 };
 
+let getAllUsers = async (req, res) => {
+  if (!req?.user) {
+    return res.send({ result: false, message: "not authenticated " });
+  } else {
+    try {
+    let users = await User.find({});
+    return res.send({ result: true, message: "users ", data: users });
+  } catch (err) {
+    return res.send({ result: false, message: err.message });
+  }
+}
+};
+
 let updateUser = async (req, res) => {
   if (!req?.user) {
     return res.send({ result: false, message: "not authenticated " });
@@ -158,4 +171,5 @@ export {
   replaceUser,
   deleteUser,
   logoutUser,
+  getAllUsers
 };
