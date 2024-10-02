@@ -2,11 +2,24 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 const app = express();
+
+// Allowed origins
+const allowedOrigins = [
+  "https://reactcart-vikash.netlify.app",
+  "http://localhost:5173", // Add your local development origin here
+];
+
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN, // or specify the origin of your React app
-    credentials: true, // Enable this if you need to send cookies or authentication headers
-    allowedHeaders: ["Content-Type", "Authorization"],
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or Postman)
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, origin);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
   })
 );
 
