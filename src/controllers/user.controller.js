@@ -155,7 +155,7 @@ let logoutUser = (req, res) => {
       } else {
         try {
           return res
-            .clearCookie("Token")
+            .clearCookie("Token", cookieOption)
             .send({ result: true, message: "logout Sucessfully " });
         } catch (err) {
           return res.send({ result: false, message: err.message });
