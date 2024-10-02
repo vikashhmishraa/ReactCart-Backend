@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser";
 const app = express();
 app.use(
   cors({
-    origin:'*', // or specify the origin of your React app
+    origin:process.env.CORS_ORIGIN, // or specify the origin of your React app
     credentials: true, // Enable this if you need to send cookies or authentication headers
   })
 );
